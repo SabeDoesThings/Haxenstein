@@ -1,5 +1,7 @@
 package;
 
+import h3d.scene.Interactive;
+import hxd.Res;
 import h3d.col.Bounds;
 import h3d.scene.Object;
 import h3d.col.Ray;
@@ -101,11 +103,9 @@ class Main extends hxd.App {
 
     override function update(dt: Float) {
         var currentMouseX = s2d.mouseX;
-        var currentMouseY = s2d.mouseY;
 
         // Calculate mouse movement delta
         var deltaX = (currentMouseX - (s2d.width >> 1)) * mouseSensitivity;
-        var deltaY = (currentMouseY - (s2d.height >> 1)) * mouseSensitivity;
 
         // Update camera orientation based on camera mode
         if (cameraMode == FirstPerson) {
@@ -132,6 +132,18 @@ class Main extends hxd.App {
         // Exit application if ESCAPE key is pressed
         if (Key.isPressed(Key.ESCAPE)) {
             System.exit();
+        }
+
+        for (enemy in enemies) {
+            for (b in player.bullets) {
+                if (b.bullet.getBounds().collide(enemy.getBounds())) {
+                    Res.monster_die.play();
+                    s3d.removeChild(enemy);
+                    enemies.remove(enemy);
+                    s3d.removeChild(b.bullet);
+                    player.bullets.remove(b);
+                }
+            }
         }
     }
 

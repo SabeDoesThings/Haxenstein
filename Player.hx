@@ -1,9 +1,10 @@
 package;
 
+import h3d.scene.Graphics;
+import h3d.col.Bounds;
 import hxd.Res;
 import h2d.Anim;
 import h3d.Vector;
-import h3d.scene.Graphics;
 import hxd.Key;
 import h3d.scene.Object;
 import h3d.scene.Scene;
@@ -84,8 +85,8 @@ class Player extends Object {
 
     function moveBullets(dt: Float) {
         for (b in bullets) {
-            b.bullet.x += b.direction.x * 600 * dt;
-            b.bullet.y += b.direction.y * 600 * dt;
+            b.bullet.x += b.direction.x * 6 * dt;
+            b.bullet.y += b.direction.y * 6 * dt;
         }
     }
 
@@ -96,13 +97,13 @@ class Player extends Object {
             gun.speed = 15;
             gun.loop = false;
 
-            var prim = new h3d.prim.Cube(0.01, 0.01, 0.01, true);
+            var prim = new h3d.prim.Cube(1, 1, 1);
             prim.unindex();
             prim.addNormals();
             prim.addUVs();
             var bullet = new Mesh(prim, this.s3d);
             // Set the bullet position to the player's position
-            bullet.setPosition(Main.playerPosition.x, Main.playerPosition.y, this.z + 0.5);
+            bullet.setPosition(Main.playerPosition.x, Main.playerPosition.y, this.z);
 
             // Calculate the direction vector based on player's facing direction (Main.yaw)
             var direction = new Vector(Math.cos(Main.yaw), Math.sin(Main.yaw), 0);
@@ -113,6 +114,8 @@ class Player extends Object {
             direction.y /= length;
 
             bullet.material.color.setColor(0x00FFFFFF);
+
+            var graphics = new Graphics(s3d);
 
             bullets.push({bullet: bullet, direction: direction});
         }
