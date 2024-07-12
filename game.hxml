@@ -48,7 +48,7 @@
 #-D windowSize=800x600
 -D windowSize=1280x720
 #-D windowSize=1920x1080
--D windowTitle=Basic Heaps.io Camera Modes
+-D windowTitle=Haxenstein
 #-D resourcesPath=assets ???
 #-D dce=full
 -D debug=true
